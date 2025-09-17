@@ -1,8 +1,11 @@
 import React from 'react'
+import Banner from '../Home/Banner'
 
 function Home() {
   return (
-    <div>Home</div>
+   <div className='w-full min-h-full'>
+     <Banner/>
+   </div>
   )
 }
 

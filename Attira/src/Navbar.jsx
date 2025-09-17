@@ -1,34 +1,49 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Logo from "./components/Navbar/Logo";
-import Cart from "./components/Navbar/Cart";
-import Wishlist from "./components/Navbar/Wishlist";
 import Search from "./components/Navbar/Search";
+import { BsCart2 } from "react-icons/bs";
+import { GoHeart } from "react-icons/go";
 import { NavLink } from "react-router-dom";
+import gsap from "gsap";
 
 function Navbar() {
+  // Refs for GSAP
+  const logoRef = useRef(null);
+  const linksRef = useRef(null);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.8 } });
+
+    tl.from(logoRef.current, { y: -50, opacity: 0 })
+      .from(linksRef.current.children, { y: -50, opacity: 0, stagger: 0.1 }, "-=0.5")
+      .from(searchRef.current, { y: -50, opacity: 0 }, "-=0.4");
+  }, []);
+
   return (
-    <header className="w-full h-[11%] bg-gray-200 shadow-md fixed top-0 p-5 z-50">
-      <nav className="w-full h-full flex items-center justify-between px-6">
+    <header className="w-full h-[11%] shadow-md fixed top-0 p-5 z-50 bg-white">
+      <nav className="w-full h-full flex items-center justify-between px-6 text-[17px]">
         {/* Logo */}
         <NavLink
           to="/"
+          ref={logoRef}
           className={({ isActive }) =>
             isActive
               ? "text-orange-400 text-md font-semibold"
-              : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+              : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
           }
         >
           <Logo />
         </NavLink>
 
         {/* Middle nav links */}
-        <ul className="flex items-center gap-6">
+        <ul ref={linksRef} className="flex items-center gap-6">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
                 ? "text-orange-400 text-md font-semibold"
-                : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+                : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
             }
           >
             Home
@@ -38,7 +53,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "text-orange-400 text-md font-semibold"
-                : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+                : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
             }
           >
             Products
@@ -48,26 +63,28 @@ function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "text-orange-400 text-md font-semibold"
-                : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+                : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
             }
           >
             About Us
           </NavLink>
         </ul>
 
-        {/* Right side*/}
-        <ul className="flex items-center gap-6">
-          <Search />
+        {/* Right side */}
+        <ul className="flex items-center gap-6"  ref={searchRef}>
+          <div>
+            <Search />
+          </div>
 
           <NavLink
             to="/wishlist"
             className={({ isActive }) =>
               isActive
                 ? "text-orange-400 text-md font-semibold"
-                : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+                : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
             }
           >
-            <Wishlist />
+            <GoHeart size={27} />
           </NavLink>
 
           <NavLink
@@ -75,10 +92,10 @@ function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "text-orange-400 text-md font-semibold"
-                : "text-gray-500 hover:text-orange-300 text-md hover:font-semibold"
+                : "text-gray-600 hover:text-orange-300 text-md hover:font-semibold"
             }
           >
-            <Cart />
+            <BsCart2 size={27} />
           </NavLink>
         </ul>
       </nav>

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { BsCart2 } from "react-icons/bs";
 
 function Cart() {
   return (
-    <div>Cart</div>
-  )
+    <div>
+      <BsCart2 size={24} />
+    </div>
+  );
 }
 
-export default Cart
+export default Cart;
