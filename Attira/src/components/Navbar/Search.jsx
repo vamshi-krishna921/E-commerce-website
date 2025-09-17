@@ -26,8 +26,11 @@ function Search() {
           className="flex-1 outline-none bg-transparent px-2 text-gray-700"
           aria-label="Search"
         />
-        <button type="submit">
-          <GrSearch size={22} className="text-gray-600 hover:text-orange-400" />
+        <button
+          type="submit"
+          className="flex items-center justify-center p-2 bg-orange-400 rounded-full hover:bg-orange-600 transition-colors duration-200"
+        >
+          <GrSearch size={22} className="text-white" />
         </button>
       </div>
     </form>
