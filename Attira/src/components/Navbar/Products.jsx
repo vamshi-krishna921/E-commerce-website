@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Products() {
   const productTypes = ["All", "Mens", "Womens", "Kids", "New Arrival"];
-  const [category, setCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   return (
     <section className="w-full min-h-screen bg-gray-100 flex items-start -mt-8">
@@ -11,9 +11,9 @@ function Products() {
           {productTypes.map((type, index) => (
             <button
               key={index}
-              onClick={() => setCategory(type)}
+              onClick={() => setActiveCategory(type)}
               className={`w-32 py-2 rounded-xl text-center font-body text-[18x] ${
-                category == type ? "bg-orange-400" : "bg-gray-100"
+                activeCategory == type ? "bg-orange-400" : "bg-gray-100"
               } transition cursor-pointer hover:bg-orange-300`}
             >
               {type}
