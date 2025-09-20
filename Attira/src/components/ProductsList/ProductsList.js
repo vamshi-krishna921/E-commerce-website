@@ -76,7 +76,7 @@ import sweater1 from "../../assets/Kids/Sweater/Sweater1.jpeg"
 
 
 
-const productsList = [
+export const productsList = [
   {
     id: 1,
     category: "Mens",

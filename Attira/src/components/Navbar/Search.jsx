@@ -13,6 +13,7 @@ function Search() {
     } else {
       navigate("/products");
     }
+    setQuery("");
   };
 
   return (
