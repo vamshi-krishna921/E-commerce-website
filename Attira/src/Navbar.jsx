@@ -25,7 +25,7 @@ function Navbar() {
     <header className="w-full h-[11%] shadow-md fixed top-0 p-5 z-50 bg-white">
       <nav className="w-full h-full flex items-center justify-between px-6 text-[17px] font-body">
         {/* Logo */}
-        <NavLink
+        <NavLink title="Home"
           to="/"
           ref={logoRef}
           className={({ isActive }) =>
@@ -77,7 +77,7 @@ function Navbar() {
             <Search />
           </div>
 
-          <NavLink
+          <NavLink title="wishlist"
             to="/wishlist"
             className={({ isActive }) =>
               isActive
@@ -88,7 +88,7 @@ function Navbar() {
             <GoHeart size={27} />
           </NavLink>
 
-          <NavLink
+          <NavLink title="Cart"
             to="/cart"
             className={({ isActive }) =>
               isActive

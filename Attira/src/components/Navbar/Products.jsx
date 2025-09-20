@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Products() {
-  const productTypes = ["All", "Mens", "Womens", "Kids", "New Arrival"];
+  const productTypes = ["All", "Mens", "Women", "Kids", "New Arrival"];
   const [activeCategory, setActiveCategory] = useState("All");
 
   return (
