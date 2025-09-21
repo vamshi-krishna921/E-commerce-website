@@ -31,7 +31,7 @@ function Search() {
           type="submit"
           className="flex items-center justify-center p-2 bg-orange-400 rounded-full hover:bg-orange-600 transition-colors duration-200"
         >
-          <GrSearch size={22} className="text-white" />
+          <GrSearch size={22} className="text-white cursor-pointer" />
         </button>
       </div>
     </form>

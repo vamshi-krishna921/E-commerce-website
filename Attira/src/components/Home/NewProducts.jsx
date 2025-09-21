@@ -3,7 +3,6 @@ import { productsList } from "../ProductsList/ProductsList";
 import ProductCardList from "../Navbar/ProductCardList"; // adjust path if needed
 
 function NewProducts() {
-  // Filter only new arrival products and limit to 9
   const newProducts = useMemo(
     () => productsList.filter((product) => product.newArrival).slice(0, 9),
     []

@@ -1,16 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsList } from "../ProductsList/ProductsList";
+import ProductCardList from "../Navbar/ProductCardList";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function ProductItem() {
   const { id } = useParams();
   const product = productsList.find((product) => product.id === parseInt(id));
+  const newProducts = useMemo(() => {
+  const shuffled = [...productsList].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 3);
+}, [id]);
 
-  // Animation setup
+  useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // optional: for smooth scroll
+  });
+}, [id]);
+
   const boxRefs = useRef([]);
   boxRefs.current = [];
+
   const addToRefs = (el) => {
     if (el && !boxRefs.current.includes(el)) {
       boxRefs.current.push(el);
@@ -18,12 +33,17 @@ function ProductItem() {
   };
 
   useEffect(() => {
-    gsap.from(boxRefs.current, {
-      opacity: 0,
-      y: 100,
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.2,
+    boxRefs.current.forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 100%",
+        },
+      });
     });
   }, []);
 
@@ -64,7 +84,7 @@ function ProductItem() {
   };
 
   return (
-    <section className="w-full h-full bg-gray-100 -mt-4 flex justify-center items-center">
+    <section className="w-full h-full bg-gray-100 -mt-4 flex flex-col gap-14 justify-center items-center">
       <div className="w-[80%] bg-white flex justify-center gap-7 flex-wrap p-5 mt-10 rounded-2xl">
         {/* Images box */}
         <div
@@ -121,18 +141,32 @@ function ProductItem() {
               </p>
             </div>
 
-            <button
-                className="w-[80%] p-2.5 font-body rounded-2xl bg-yellow-500 hover:bg-yellow-400 cursor-pointer"
-              >
-                Add to cart
-              </button>
-              {product.newArrival && (
+            <button className="w-[80%] p-2.5 font-body rounded-2xl bg-yellow-500 hover:bg-yellow-400 cursor-pointer">
+              Add to cart
+            </button>
+            {product.newArrival && (
               <div className="w-20 p-1 text-center rounded-md bg-orange-300 absolute top-0 right-0">
                 New
               </div>
             )}
           </div>
         </div>
+      </div>
+
+      <div
+        ref={addToRefs}
+        className="w-full flex justify-center items-center gap-12 flex-col"
+      >
+        <h2 className="text-4xl font-body font-bold">Description</h2>
+        <div className="w-[80%]">
+          <p className="text-lg font-body text-start leading-relaxed">
+           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus aperiam, repellat quibusdam culpa expedita ipsum assumenda temporibus rerum dolor, magnam aut dolores nemo ullam ad quaerat voluptate nesciunt, odit aliquam ipsa nostrum. Deleniti ab officia nobis eius voluptas molestiae, mollitia voluptates incidunt! Obcaecati, nesciunt molestias unde at quidem laudantium cumque, rem itaque aspernatur praesentium veniam odit aliquid sunt ad reiciendis, sed quisquam. Debitis temporibus pariatur cupiditate laudantium reprehenderit, repellendus accusantium culpa rem quas ipsum facilis, incidunt ea doloribus laboriosam libero necessitatibus accusamus! Excepturi explicabo debitis enim magnam quasi. Voluptatibus alias, dicta voluptates maiores reprehenderit impedit, facere repellat modi nulla labore corrupti ratione similique quas perferendis deserunt? Nihil voluptatum voluptate fuga quibusdam repellendus dicta, totam voluptates eius at illo distinctio ex consectetur pariatur sapiente quisquam dolores saepe minima! Odit sequi dolorum quibusdam delectus incidunt, ab aspernatur, repudiandae modi consequuntur architecto porro inventore eligendi mollitia sed quis doloremque eveniet alias saepe nulla.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex gap-10 flex-wrap justify-center items-center">
+        <ProductCardList products={newProducts} />
       </div>
     </section>
   );
