@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { productsList } from "../ProductsList/ProductsList";
 import ProductCardList from "../Navbar/ProductCardList"; // adjust path if needed
 
-function NewProducts() {
+function NewProducts({ cartItems, updateCart, openCart }) {
   const newProducts = useMemo(
     () => productsList.filter((product) => product.newArrival).slice(0, 9),
     []
@@ -16,7 +16,12 @@ function NewProducts() {
 
       <div className="w-full flex justify-center">
         <div className="w-6xl p-6 flex items-center flex-wrap gap-7 justify-start bg-white rounded-2xl">
-          <ProductCardList products={newProducts} />
+          <ProductCardList
+            products={newProducts}
+            cartItems={cartItems}
+            updateCart={updateCart}
+            openCart={openCart}
+          />{" "}
         </div>
       </div>
     </section>

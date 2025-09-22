@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Routing from "./Routing";
+import Cart from "./components/Navbar/Cart";
 
 function App() {
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem("cart");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  const openCart = () => setCartOpen(true);
+  const updateCart = (items) => {
+    setCartItems(items);
+    localStorage.setItem("cart", JSON.stringify(items));
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar openCart={openCart} />
       <div className="mt-13">
-        <Routing />
+        <Routing
+          cartItems={cartItems}
+          updateCart={updateCart}
+          openCart={openCart}
+        />
       </div>
+      <Cart
+        cartOpen={cartOpen}
+        closeCart={() => setCartOpen(false)}
+        cartItems={cartItems}
+        updateCart={updateCart}
+      />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { productsList } from "../ProductsList/ProductsList";
 import { useLocation } from "react-router-dom";
 import ProductCardList from "../Navbar/ProductCardList";
 
-function Products() {
+function Products({ cartItems, updateCart, openCart }) {
   const productTypes = ["All", "Mens", "Women", "Kids", "New Arrival"];
   const [activeCategory, setActiveCategory] = useState("All");
   const location = useLocation();
@@ -16,7 +16,8 @@ function Products() {
       if (activeCategory !== "All" && activeCategory !== "New Arrival") {
         if (product.category !== activeCategory) return false;
       }
-      if (searchQuery && !product.name.toLowerCase().includes(searchQuery)) return false;
+      if (searchQuery && !product.name.toLowerCase().includes(searchQuery))
+        return false;
       return true;
     });
   }, [activeCategory, searchQuery]);
@@ -31,7 +32,9 @@ function Products() {
               key={index}
               onClick={() => setActiveCategory(type)}
               className={`w-32 py-2 rounded-xl text-center font-body text-[18px] ${
-                activeCategory === type ? "bg-orange-400 text-white" : "bg-gray-100"
+                activeCategory === type
+                  ? "bg-orange-400 text-white"
+                  : "bg-gray-100"
               } transition cursor-pointer hover:bg-orange-300`}
             >
               {type}
@@ -43,7 +46,12 @@ function Products() {
       {/* Products list */}
       <div className="w-full p-4 flex justify-center items-center">
         <div className="w-6xl p-6 flex items-center flex-wrap gap-7 justify-start bg-white rounded-2xl">
-          <ProductCardList products={products} />
+          <ProductCardList
+            products={products}
+            cartItems={cartItems}
+            updateCart={updateCart}
+            openCart={openCart}
+          />
         </div>
       </div>
     </section>

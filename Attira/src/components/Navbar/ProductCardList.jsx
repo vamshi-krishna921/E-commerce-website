@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function ProductCardList({ products }) {
+function ProductCardList({ products, cartItems, updateCart, openCart }) {
   const productRefs = useRef([]);
 
   useEffect(() => {
@@ -32,6 +32,15 @@ function ProductCardList({ products }) {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, [products]);
+
+  const addToCart = (product) => {
+    const existingCart = Array.isArray(cartItems) ? [...cartItems] : [];
+    const index = existingCart.findIndex((p) => p.id === product.id);
+    if (index >= 0) existingCart[index].quantity += 1;
+    else existingCart.push({ ...product, quantity: 1 });
+    updateCart(existingCart);
+    openCart();
+  };
 
   if (products.length === 0) {
     return <p className="text-gray-500 text-lg">No products found.</p>;
@@ -62,7 +71,11 @@ function ProductCardList({ products }) {
                 {product.price}/-
               </p>
               <button
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  addToCart(product);
+                }}
                 className="w-[80%] p-2.5 font-body rounded-2xl bg-yellow-500 hover:bg-yellow-400 cursor-pointer"
               >
                 Add to cart

@@ -8,20 +8,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function ProductItem() {
+function ProductItem({ openCart, cartItems, updateCart }) {
   const { id } = useParams();
   const product = productsList.find((product) => product.id === parseInt(id));
   const newProducts = useMemo(() => {
-  const shuffled = [...productsList].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 3);
-}, [id]);
+    const shuffled = [...productsList].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  }, [id]);
 
   useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth", // optional: for smooth scroll
-  });
-}, [id]);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [id]);
 
   const boxRefs = useRef([]);
   boxRefs.current = [];
@@ -50,6 +50,16 @@ function ProductItem() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
+
+  const addToCart = (product) => {
+    const existingCart = [...cartItems]; // now always iterable
+    const index = existingCart.findIndex((p) => p.id === product.id);
+    if (index >= 0) existingCart[index].quantity += 1;
+    else existingCart.push({ ...product, quantity: 1 });
+
+    updateCart(existingCart);
+    openCart();
+  };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -141,7 +151,10 @@ function ProductItem() {
               </p>
             </div>
 
-            <button className="w-[80%] p-2.5 font-body rounded-2xl bg-yellow-500 hover:bg-yellow-400 cursor-pointer">
+            <button
+              className="w-[80%] p-2.5 font-body rounded-2xl bg-yellow-500 hover:bg-yellow-400 cursor-pointer"
+              onClick={() => addToCart(product)}
+            >
               Add to cart
             </button>
             {product.newArrival && (
@@ -160,13 +173,36 @@ function ProductItem() {
         <h2 className="text-4xl font-body font-bold">Description</h2>
         <div className="w-[80%]">
           <p className="text-lg font-body text-start leading-relaxed">
-           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus aperiam, repellat quibusdam culpa expedita ipsum assumenda temporibus rerum dolor, magnam aut dolores nemo ullam ad quaerat voluptate nesciunt, odit aliquam ipsa nostrum. Deleniti ab officia nobis eius voluptas molestiae, mollitia voluptates incidunt! Obcaecati, nesciunt molestias unde at quidem laudantium cumque, rem itaque aspernatur praesentium veniam odit aliquid sunt ad reiciendis, sed quisquam. Debitis temporibus pariatur cupiditate laudantium reprehenderit, repellendus accusantium culpa rem quas ipsum facilis, incidunt ea doloribus laboriosam libero necessitatibus accusamus! Excepturi explicabo debitis enim magnam quasi. Voluptatibus alias, dicta voluptates maiores reprehenderit impedit, facere repellat modi nulla labore corrupti ratione similique quas perferendis deserunt? Nihil voluptatum voluptate fuga quibusdam repellendus dicta, totam voluptates eius at illo distinctio ex consectetur pariatur sapiente quisquam dolores saepe minima! Odit sequi dolorum quibusdam delectus incidunt, ab aspernatur, repudiandae modi consequuntur architecto porro inventore eligendi mollitia sed quis doloremque eveniet alias saepe nulla.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Necessitatibus aperiam, repellat quibusdam culpa expedita ipsum
+            assumenda temporibus rerum dolor, magnam aut dolores nemo ullam ad
+            quaerat voluptate nesciunt, odit aliquam ipsa nostrum. Deleniti ab
+            officia nobis eius voluptas molestiae, mollitia voluptates incidunt!
+            Obcaecati, nesciunt molestias unde at quidem laudantium cumque, rem
+            itaque aspernatur praesentium veniam odit aliquid sunt ad
+            reiciendis, sed quisquam. Debitis temporibus pariatur cupiditate
+            laudantium reprehenderit, repellendus accusantium culpa rem quas
+            ipsum facilis, incidunt ea doloribus laboriosam libero
+            necessitatibus accusamus! Excepturi explicabo debitis enim magnam
+            quasi. Voluptatibus alias, dicta voluptates maiores reprehenderit
+            impedit, facere repellat modi nulla labore corrupti ratione
+            similique quas perferendis deserunt? Nihil voluptatum voluptate fuga
+            quibusdam repellendus dicta, totam voluptates eius at illo
+            distinctio ex consectetur pariatur sapiente quisquam dolores saepe
+            minima! Odit sequi dolorum quibusdam delectus incidunt, ab
+            aspernatur, repudiandae modi consequuntur architecto porro inventore
+            eligendi mollitia sed quis doloremque eveniet alias saepe nulla.
           </p>
         </div>
       </div>
 
       <div className="flex gap-10 flex-wrap justify-center items-center">
-        <ProductCardList products={newProducts} />
+        <ProductCardList
+          products={newProducts}
+          cartItems={cartItems}
+          updateCart={updateCart}
+          openCart={openCart}
+        />
       </div>
     </section>
   );
