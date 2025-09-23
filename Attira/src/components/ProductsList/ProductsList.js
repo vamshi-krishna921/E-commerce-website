@@ -112,19 +112,6 @@ export const productsList = [
     images: [Jade, Jade1],
   },
   {
-    id: 6,
-    category: "Mens",
-    name: "Full Sleeve",
-    newArrival: true,
-    price: 599,
-    images: [
-      "/assets/Plain/sleeves.jpg",
-      "/assets/Plain/sleeves1.jpg",
-      "/assets/Plain/sleeves2.jpg",
-      "/assets/Plain/sleeves3.jpg",
-    ],
-  },
-  {
     id: 7,
     category: "Mens",
     name: "Polo T-shirt",
