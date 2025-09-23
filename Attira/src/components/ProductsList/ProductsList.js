@@ -16,8 +16,6 @@ import Haunted1 from "../../assets/Mens/Haunted/Haunted1.png";
 import Haunted2 from "../../assets/Mens/Haunted/Haunted3.png";
 import Jade from "../../assets/Mens/Never/Jade.webp";
 import Jade1 from "../../assets/Mens/Never/Jade1.png";
-import Sleeves from "../../assets/Mens/Plain/sleeves.jpg";
-import Sleeves3 from "../../assets/Mens/Plain/sleeves3.jpg";
 import Polo from "../../assets/Mens/Polo/Polo.webp";
 import Polo1 from "../../assets/Mens/Polo/Polo1.jpg";
 import Polo2 from "../../assets/Mens/Polo/Polo2.jpg";
@@ -119,7 +117,12 @@ export const productsList = [
     name: "Full Sleeve",
     newArrival: true,
     price: 599,
-    images: [Sleeves, Sleeves3],
+    images: [
+      "/assets/Plain/sleeves.jpg",
+      "/assets/Plain/sleeves1.jpg",
+      "/assets/Plain/sleeves2.jpg",
+      "/assets/Plain/sleeves3.jpg",
+    ],
   },
   {
     id: 7,
