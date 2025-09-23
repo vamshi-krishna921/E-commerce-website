@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 function ProductCardList({ products, cartItems, updateCart, openCart }) {
   const productRefs = useRef([]);
 
+  // GSAP
   useEffect(() => {
     productRefs.current = productRefs.current.slice(0, products.length);
 

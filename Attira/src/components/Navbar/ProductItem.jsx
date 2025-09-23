@@ -95,11 +95,11 @@ function ProductItem({ openCart, cartItems, updateCart }) {
 
   return (
     <section className="w-full h-full bg-gray-100 -mt-4 flex flex-col gap-14 justify-center items-center">
-      <div className="w-[80%] bg-white flex justify-center gap-7 flex-wrap p-5 mt-10 rounded-2xl">
+      <div className="w-full md:w-[80%] bg-white flex justify-center gap-7 flex-wrap p-5 mt-10 rounded-2xl">
         {/* Images box */}
         <div
           ref={addToRefs}
-          className="w-130 rounded-2xl h-140 border-2 border-gray-200"
+          className="md:w-130 w-120 rounded-2xl h-140 border-2 border-gray-200"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -111,7 +111,6 @@ function ProductItem({ openCart, cartItems, updateCart }) {
               className="w-full h-full rounded-2xl object-cover transition-all duration-300"
             />
 
-            {/* Right Arrow */}
             <div
               onClick={handleNextImage}
               className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full p-2 bg-gray-200 cursor-pointer hover:bg-gray-300"
@@ -119,7 +118,6 @@ function ProductItem({ openCart, cartItems, updateCart }) {
               <ChevronRight className="w-5 h-5 text-xl" />
             </div>
 
-            {/* Left Arrow */}
             <div
               onClick={handlePrevImage}
               className="absolute top-1/2 left-1 -translate-y-1/2 rounded-full p-2 bg-gray-200 cursor-pointer hover:bg-gray-300"
@@ -129,7 +127,6 @@ function ProductItem({ openCart, cartItems, updateCart }) {
           </div>
         </div>
 
-        {/* Details box */}
         <div
           ref={addToRefs}
           className="w-130 rounded-2xl h-140 border-2 border-gray-200 flex justify-center items-center relative overflow-hidden"

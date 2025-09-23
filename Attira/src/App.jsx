@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import Routing from "./Routing";
 import Cart from "./components/Navbar/Cart";
 
@@ -32,6 +33,7 @@ function App() {
         cartItems={cartItems}
         updateCart={updateCart}
       />
+      <Footer/>
     </>
   );
 }
